@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import rockGlass from './images/rockGlass.svg';
-// iniciando o projeto 
+
 function App() {
   return (
     <div className="App">
