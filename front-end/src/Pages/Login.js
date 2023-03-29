@@ -8,7 +8,7 @@ function Login() {
     history.push('/login');
   }, []);
   return (
-    <div></div>
+    <div>LOGIN</div>
   );
 }
 
