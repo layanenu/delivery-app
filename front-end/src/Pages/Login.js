@@ -8,6 +8,8 @@ function Login() {
   const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
 
+  console.log(isLogged);
+
   const commonLogin = 'common_login__';
   const inputEmail = 'input-email';
   const inputPassword = 'input-password';
