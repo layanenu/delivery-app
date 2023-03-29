@@ -5,6 +5,8 @@ function Login() {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLogged, setIsLogged] = useState(false);
+  const [failedTryLogin, setFailedTryLogin] = useState(false);
 
   const commonLogin = 'common_login__';
   const inputEmail = 'input-email';
@@ -23,6 +25,26 @@ function Login() {
   useEffect(() => {
     emailIsValid = email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
   }, [email]);
+
+  const loginButton = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { token } = await requestLogin('/login', { email, password });
+
+      setToken(token);
+
+      const { role } = await requestData('/login/role', { email, password });
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('role', role);
+
+      setIsLogged(true);
+    } catch (error) {
+      setFailedTryLogin(true);
+      setIsLogged(false);
+    }
+  };
   return (
     <div>
       <form>
@@ -41,8 +63,8 @@ function Login() {
         <button
           type="button"
           data-testid={ `${commonLogin}${buttonLogin}` }
-          value={ email }
           disabled={ !(emailIsValid && password.length >= minPasswordLenght) }
+          onClick={ (e) => loginButton(e) }
         >
           LOGIN
         </button>
@@ -53,7 +75,13 @@ function Login() {
           Ainda não tenho conta
         </button>
       </form>
-      <p data-testid={ `${commonLogin}${elementInvalidEmail}` }>Mensagem de erro</p>
+      {
+        (failedTryLogin)
+          ? (
+            <p data-testid={ `${commonLogin}${elementInvalidEmail}` }>Mensagem de erro</p>
+          ) : null
+      }
+
     </div>
   );
 }
