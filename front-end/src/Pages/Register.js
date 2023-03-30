@@ -28,11 +28,11 @@ function Register() {
     e.preventDefault();
 
     try {
-      const { token } = await requestLogin('/register', { name, email, password });
+      const user = await requestLogin('/register', { name, email, password });
 
-      setToken(token);
+      setToken(user.token);
 
-      localStorage.setItem('token', token);
+      localStorage.setItem('user', user);
       history.push('/customer/products');
     } catch (error) {
       console.log(error);

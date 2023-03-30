@@ -30,11 +30,11 @@ function Login() {
     e.preventDefault();
 
     try {
-      const { token } = await requestLogin('/login', { email, password });
+      const user = await requestLogin('/login', { email, password });
+      console.log(typeof user);
+      setToken(user.token);
 
-      setToken(token);
-
-      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
       history.push('/customer/products');
     } catch (error) {
       setFailedTryLogin(true);
