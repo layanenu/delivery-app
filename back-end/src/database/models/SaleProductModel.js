@@ -11,7 +11,7 @@ const SaleProduct = (sequelize, DataTypes) => {
     }
   },
   {
-    tableName: 'posts_categories',
+    tableName: 'sales_products',
     timestamps: false,
     underscored: true,
   });
