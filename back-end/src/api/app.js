@@ -13,4 +13,6 @@ app.use('/login', loginRoutes);
 app.use('/register', registerRoutes);
 app.use('/products', productRoutes);
 
+app.use(express.static('public'));
+
 module.exports = app;
