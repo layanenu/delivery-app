@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { requestLogin, setToken } from '../services/request';
 
 function Login() {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
 
   const commonLogin = 'common_login__';
@@ -34,15 +34,10 @@ function Login() {
 
       setToken(token);
 
-      const { role } = await requestData('/login/role', { email, password });
-
       localStorage.setItem('token', token);
-      localStorage.setItem('role', role);
-
-      setIsLogged(true);
+      history.push('/customer/products');
     } catch (error) {
       setFailedTryLogin(true);
-      setIsLogged(false);
     }
   };
   return (
@@ -75,13 +70,12 @@ function Login() {
           Ainda não tenho conta
         </button>
       </form>
-      {
-        (failedTryLogin)
-          ? (
-            <p data-testid={ `${commonLogin}${elementInvalidEmail}` }>Mensagem de erro</p>
-          ) : null
-      }
-
+      <p
+        data-testid={ `${commonLogin}${elementInvalidEmail}` }
+        style={ { visibility: failedTryLogin ? 'visible' : 'hidden' } }
+      >
+        Mensagem de erro
+      </p>
     </div>
   );
 }
