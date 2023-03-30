@@ -4,9 +4,9 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   const token = await service.login(email, password);
   if (!token) {
-    res.sendStatus(404);
+    return res.status(404).json({ message: 'Not found' });
   }
-  res.status(200).send({ token });
+  return res.status(200).send({ token });
 };
 
 module.exports = { login };
