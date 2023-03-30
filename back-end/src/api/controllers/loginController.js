@@ -9,4 +9,13 @@ const login = async (req, res) => {
   return res.status(200).send(response);
 };
 
-module.exports = { login };
+const loginVerify = async (req, res) => {
+  const { token } = req.body;
+  const user = await service.loginVerify(token);
+  if (!user) {
+    return res.status(401).json(false);
+  }
+  return res.status(200).json(true);
+};
+
+module.exports = { login, loginVerify };
