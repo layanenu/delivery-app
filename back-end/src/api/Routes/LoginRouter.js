@@ -8,5 +8,6 @@ const {
 const router = Router();
 
 router.post('/', validatePassword, validateEmail, controller.login);
+router.post('/verify', controller.loginVerify);
 
 module.exports = router;
