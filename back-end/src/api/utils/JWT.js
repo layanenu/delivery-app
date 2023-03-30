@@ -7,9 +7,9 @@ const jwtConfig = {
 };
 
 const tokenGenerate = (user) => {
-    const secret = fs.readFileSync('jwt.evaluation.key', 'utf-8') || 'secret';
-    const token = jwt.sign({ data: user }, secret, jwtConfig);
-    return token; 
+  const secret = fs.readFileSync('jwt.evaluation.key', 'utf-8') || 'secret';
+  const token = jwt.sign({ data: user }, secret, jwtConfig);
+  return token;
 };
 
 module.exports = { tokenGenerate };
