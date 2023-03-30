@@ -10,8 +10,15 @@ async function register(name, email, password) {
       password: md5(password),
       role: 'customer',
     });
+    
     const token = tokenGenerate(user);
-    return token;
+
+    return {
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      token,
+    };
   } catch (error) {
     return null;
   }
