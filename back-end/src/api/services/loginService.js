@@ -9,7 +9,12 @@ const login = async (email, password) => {
   }
   const token = tokenGenerate(user);
 
-  return token;
+  return {
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    token,
+  };
 };
 
 module.exports = { login };
