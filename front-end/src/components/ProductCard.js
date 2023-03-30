@@ -7,27 +7,30 @@ function ProductCard(props) {
   const cardTitle = 'element-card-title-';
   const buttonRmItem = 'button-card-rm-item-';
   const buttonAddItem = 'button-card-add-item-';
-  const inputQuantity = 'input-card-quantity-';
+  const inputQuantity = 'customer_products__input-card-quantity-';
 
-  const { id } = props.produto;
+  const { id, name, price, url_image } = props.produto;
+  const newPrice = price.replace('.', ',');
 
   return (
     <div>
-      <p data-testid={ `${customerProducts}${elementCard}${id}` }>valor</p>
-      <img src="" alt="" data-testid={ `${customerProducts}${imgCard}${id}` } />
-      <p data-testid={ `${customerProducts}${cardTitle}${id}` }>nome</p>
+      <p data-testid={ `${customerProducts}${elementCard}${id}` }>{newPrice}</p>
+      <img
+        src={ url_image }
+        alt={ name }
+        data-testid={ `${customerProducts}${imgCard}${id}` }
+      />
+      <p data-testid={ `${customerProducts}${cardTitle}${id}` }>{name}</p>
       <button
         type="button"
         data-testid={ `${customerProducts}${buttonRmItem}${id}` }
       >
         -
       </button>
-      <span
-        type="button"
-        data-testid={ `${customerProducts}${inputQuantity}${id}` }
-      >
-        quantidade
-      </span>
+      <input
+        type="number"
+        data-testid={ `${inputQuantity}${id}` }
+      />
       <button
         type="button"
         data-testid={ `${customerProducts}${buttonAddItem}${id}` }
