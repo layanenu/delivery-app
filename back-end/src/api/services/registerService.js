@@ -1,6 +1,6 @@
-const { User } = require("../../database/models");
-const md5 = require("md5");
-const { tokenGenerate } = require("../utils/JWT");
+const md5 = require('md5');
+const { User } = require('../../database/models');
+const { tokenGenerate } = require('../utils/JWT');
 
 async function register(name, email, password) {
   try {
@@ -8,7 +8,7 @@ async function register(name, email, password) {
       name,
       email,
       password: md5(password),
-      role: "customer",
+      role: 'customer',
     });
     const token = tokenGenerate(user);
     return token;
