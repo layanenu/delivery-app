@@ -8,6 +8,8 @@ function CustomerProducts() {
   const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState([]);
 
+  const cartTotalValue = 100;
+
   useEffect(() => {
     async function fetchData() {
       const result = await requestData('/products');
@@ -20,10 +22,22 @@ function CustomerProducts() {
     setCartItems(cart);
     console.log(cartItems);
   }, []);
+
   return (
     <div>
       <Navbar />
-      {products.map((product) => <ProductCard key={ product.id } product={ product } />)}
+      <div>
+        {products
+          .map((product) => <ProductCard key={ product.id } product={ product } />)}
+      </div>
+      <footer>
+        <button
+          type="button"
+        >
+          {`VER CARRINHO: R$ ${cartTotalValue}`}
+        </button>
+      </footer>
+
     </div>
   );
 }

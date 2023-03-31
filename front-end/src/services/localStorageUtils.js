@@ -68,31 +68,6 @@ export const handleCartArbitrary = (product, newQuantity) => {
   localStorage.setItem('cartList', JSON.stringify(cart));
 };
 
-export const handleCart = (product, quantity) => {
-  const cart = getCartItems();
-
-  const errorIndex = -1;
-
-  const index = cart.findIndex((prod) => product.id === prod.id);
-
-  if (index === errorIndex) {
-    product.quantity = quantity;
-    product.subTotal = quantity * product.price;
-    if (product.quantity < 0) product.quantity = 0;
-    cart.push(product);
-  } else {
-    if (cart[index].quantity <= 0) {
-      cart[index].quantity = 0;
-    } else {
-      cart[index].quantity = Number(cart[index].quantity) + quantity;
-      cart[index].subTotal = Number(cart[index].quantity) * cart[index].price;
-    }
-    cart[index].quantity = String(cart[index].quantity);
-  }
-
-  localStorage.setItem('cartList', JSON.stringify(cart));
-};
-
 // export const sumCart = () => {
-
+//   get
 // }
