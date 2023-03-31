@@ -1,12 +1,27 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import AppContext from '../context/AppContext';
 import {
   handleCartDecrease,
   handleCartIncrease,
-  handleCartArbitrary } from '../services/localStorageUtils';
+  handleCartArbitrary,
+  sumCart,
+  getCartItems } from '../services/localStorageUtils';
 
 function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(0);
+
+  const { updateCartValue } = useContext(AppContext);
+
+  useEffect(() => {
+    const cart = getCartItems();
+    const isOnCart = cart.find((item) => item.id === product.id);
+    if (isOnCart) {
+      setQuantity(isOnCart.quantity);
+    } else {
+      setQuantity(0);
+    }
+  }, []);
 
   const customerProducts = 'customer_products__';
   const elementCard = 'element-card-price-';
@@ -24,11 +39,15 @@ function ProductCard({ product }) {
       setQuantity(quantity - 1);
       handleCartDecrease(product);
     }
+    const newTotal = sumCart();
+    updateCartValue(newTotal);
   };
 
   const handleIncrease = () => {
     setQuantity(quantity + 1);
     handleCartIncrease(product);
+    const newTotal = sumCart();
+    updateCartValue(newTotal);
   };
 
   const handleInputChange = ({ target: { value: newQuantity } }) => {
@@ -39,6 +58,8 @@ function ProductCard({ product }) {
     }
 
     handleCartArbitrary(product, Number(newQuantity));
+    const newTotal = sumCart();
+    updateCartValue(newTotal);
   };
 
   return (

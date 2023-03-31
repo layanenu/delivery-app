@@ -68,6 +68,17 @@ export const handleCartArbitrary = (product, newQuantity) => {
   localStorage.setItem('cartList', JSON.stringify(cart));
 };
 
-// export const sumCart = () => {
-//   get
-// }
+export const sumCart = () => {
+  const cart = getCartItems();
+  console.log(cart);
+  if (cart.length === 0) {
+    return 0;
+  }
+
+  const total = cart.reduce((acc, item) => {
+    acc += item.subTotal;
+    return acc;
+  }, 0);
+
+  return total.toFixed(2).replace('.', ',');
+};

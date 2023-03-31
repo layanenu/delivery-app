@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
-import { getCartItems } from '../services/localStorageUtils';
+import AppContext from '../context/AppContext';
+import { sumCart } from '../services/localStorageUtils';
+// import { getCartItems } from '../services/localStorageUtils';
 import { requestData } from '../services/request';
 
 function CustomerProducts() {
-  const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState([]);
 
-  const cartTotalValue = 100;
+  const { totalCart, updateCartValue } = useContext(AppContext);
+
+  const history = useHistory();
 
   useEffect(() => {
     async function fetchData() {
       const result = await requestData('/products');
       setProducts(result);
     }
-
+    const total = sumCart();
+    updateCartValue(total);
     fetchData();
-
-    const cart = getCartItems();
-    setCartItems(cart);
-    console.log(cartItems);
   }, []);
+
+  const customerProducts = 'customer_products__';
 
   return (
     <div>
@@ -33,8 +36,16 @@ function CustomerProducts() {
       <footer>
         <button
           type="button"
+          data-testid={ `${customerProducts}button-cart` }
+          onClick={ () => history.push('/customer/checkout') }
         >
-          {`VER CARRINHO: R$ ${cartTotalValue}`}
+          VER CARRINHO: R$
+          {' '}
+          <span
+            data-testid={ `${customerProducts}checkout-bottom-value` }
+          >
+            {totalCart}
+          </span>
         </button>
       </footer>
 
