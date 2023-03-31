@@ -20,6 +20,21 @@ function ProductCard({ produto }) {
   const { id, name, price, url_image: urlImage } = produto;
   const newPrice = price.replace('.', ',');
 
+  // funçao que muda o estado quantidade
+  const handleBtns = (e) => {
+    e.preventDefault();
+    console.log(e.target);
+    if (e.target.name === 'add') {
+      handleCart(produto, addItem);
+      setQuantidade(quantidade + 1);
+    } else if (quantidade === 0) {
+      setQuantidade(0);
+    } else {
+      handleCart(produto, rmItem);
+      setQuantidade(quantidade - 1);
+    }
+  };
+
   return (
     <div>
       <p data-testid={ `${customerProducts}${elementCard}${id}` }>{newPrice}</p>
@@ -31,8 +46,10 @@ function ProductCard({ produto }) {
       <p data-testid={ `${customerProducts}${cardTitle}${id}` }>{name}</p>
       <button
         type="button"
+        name="rmv"
         data-testid={ `${customerProducts}${buttonRmItem}${id}` }
-        onClick={ () => handleCart(produto, rmItem) }
+        // onClick={ () => handleCart(produto, rmItem) }
+        onClick={ handleBtns }
       >
         -
       </button>
@@ -43,8 +60,10 @@ function ProductCard({ produto }) {
       />
       <button
         type="button"
+        name="add"
         data-testid={ `${customerProducts}${buttonAddItem}${id}` }
-        onClick={ () => handleCart(produto, addItem) }
+        onClick={ handleBtns }
+        // onClick={ () => handleCart(produto, addItem) }
       >
         +
       </button>
