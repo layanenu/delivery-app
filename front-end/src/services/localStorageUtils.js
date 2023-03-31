@@ -30,3 +30,7 @@ export const handleCart = (product, quantity) => {
 
   localStorage.setItem('cartList', JSON.stringify(cart)); // Devolve pro localStorage
 };
+
+// export const sumCart = () => {
+
+// }

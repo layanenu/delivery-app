@@ -37,13 +37,14 @@ function ProductCard({ produto }) {
 
   return (
     <div>
-      <p data-testid={ `${customerProducts}${elementCard}${id}` }>{newPrice}</p>
       <img
         src={ urlImage }
         alt={ name }
+        width="150"
         data-testid={ `${customerProducts}${imgCard}${id}` }
       />
       <p data-testid={ `${customerProducts}${cardTitle}${id}` }>{name}</p>
+      <p data-testid={ `${customerProducts}${elementCard}${id}` }>{newPrice}</p>
       <button
         type="button"
         name="rmv"
