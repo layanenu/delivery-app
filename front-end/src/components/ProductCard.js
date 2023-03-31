@@ -1,9 +1,27 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import { handleCart } from '../services/localStorageUtils';
+import React, { useContext, useEffect, useState } from 'react';
+import AppContext from '../context/AppContext';
+import {
+  handleCartDecrease,
+  handleCartIncrease,
+  handleCartArbitrary,
+  sumCart,
+  getCartItems } from '../services/localStorageUtils';
 
-function ProductCard({ produto }) {
-  const [quantidade, setQuantidade] = useState(0);
+function ProductCard({ product }) {
+  const [quantity, setQuantity] = useState(0);
+
+  const { updateCartValue } = useContext(AppContext);
+
+  useEffect(() => {
+    const cart = getCartItems();
+    const isOnCart = cart.find((item) => item.id === product.id);
+    if (isOnCart) {
+      setQuantity(isOnCart.quantity);
+    } else {
+      setQuantity(0);
+    }
+  }, []);
 
   const customerProducts = 'customer_products__';
   const elementCard = 'element-card-price-';
@@ -13,56 +31,67 @@ function ProductCard({ produto }) {
   const buttonAddItem = 'button-card-add-item-';
   const inputQuantity = 'customer_products__input-card-quantity-';
 
-  const rmItem = -1;
-  const addItem = 1;
-
-  // const { produto } = props;
-  const { id, name, price, url_image: urlImage } = produto;
+  const { id, name, price, url_image: urlImage } = product;
   const newPrice = price.replace('.', ',');
 
-  // funçao que muda o estado quantidade
-  const handleBtns = (e) => {
-    e.preventDefault();
-    console.log(e.target);
-    if (e.target.name === 'add') {
-      handleCart(produto, addItem);
-      setQuantidade(quantidade + 1);
-    } else if (quantidade === 0) {
-      setQuantidade(0);
-    } else {
-      handleCart(produto, rmItem);
-      setQuantidade(quantidade - 1);
+  const handleDecrease = () => {
+    if (quantity !== 0) {
+      setQuantity(quantity - 1);
+      handleCartDecrease(product);
     }
+    const newTotal = sumCart();
+    updateCartValue(newTotal);
+  };
+
+  const handleIncrease = () => {
+    setQuantity(quantity + 1);
+    handleCartIncrease(product);
+    const newTotal = sumCart();
+    updateCartValue(newTotal);
+  };
+
+  const handleInputChange = ({ target: { value: newQuantity } }) => {
+    if (newQuantity < 0) {
+      setQuantity('');
+    } else {
+      setQuantity(newQuantity);
+    }
+
+    handleCartArbitrary(product, Number(newQuantity));
+    const newTotal = sumCart();
+    updateCartValue(newTotal);
   };
 
   return (
     <div>
-      <p data-testid={ `${customerProducts}${elementCard}${id}` }>{newPrice}</p>
       <img
         src={ urlImage }
         alt={ name }
+        width="150"
         data-testid={ `${customerProducts}${imgCard}${id}` }
       />
       <p data-testid={ `${customerProducts}${cardTitle}${id}` }>{name}</p>
+      <p data-testid={ `${customerProducts}${elementCard}${id}` }>{newPrice}</p>
       <button
         type="button"
-        name="rmv"
+        // name="decrease"
         data-testid={ `${customerProducts}${buttonRmItem}${id}` }
         // onClick={ () => handleCart(produto, rmItem) }
-        onClick={ handleBtns }
+        onClick={ handleDecrease }
       >
         -
       </button>
       <input
         type="number"
         data-testid={ `${inputQuantity}${id}` }
-        value={ quantidade }
+        value={ quantity }
+        onChange={ handleInputChange }
       />
       <button
         type="button"
-        name="add"
+        // name="increase"
         data-testid={ `${customerProducts}${buttonAddItem}${id}` }
-        onClick={ handleBtns }
+        onClick={ handleIncrease }
         // onClick={ () => handleCart(produto, addItem) }
       >
         +
@@ -72,12 +101,10 @@ function ProductCard({ produto }) {
 }
 
 ProductCard.propTypes = {
-  produto: PropTypes.shape({
+  product: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
-    price: PropTypes.shape({
-      replace: PropTypes.func,
-    }).isRequired,
+    price: PropTypes.string,
     url_image: PropTypes.string,
   }).isRequired,
 };

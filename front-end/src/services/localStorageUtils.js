@@ -8,25 +8,77 @@ export const getCartItems = () => {
   return items;
 };
 
-export const handleCart = (product, quantity) => {
-  const cart = getCartItems(); // Pega do localStorage
-  const errorIndex = -1;
-  const index = cart.findIndex((prod) => product.id === prod.id); // Pega o index
+export const handleCartIncrease = (product) => {
+  const cart = getCartItems();
 
-  if (index === errorIndex) { // Verifica se encontrou o produto no array
-    product.quantity = quantity; // Adiciona a quantidade a validação deve ser feita no front deixando o botão de remover desabilitado quando não houver esse item no carrinho
-    product.subTotal = quantity * product.price;
-    if (product.quantity < 0) product.quantity = 0;
+  const NOT_FOUND = -1;
+
+  const index = cart.findIndex((prod) => product.id === prod.id);
+
+  if (index === NOT_FOUND) {
+    product.quantity = 1;
+    product.subTotal = Number(product.price);
+
     cart.push(product);
   } else {
-    if (cart[index].quantity <= 0) { // Verifica se a quantidade é menor ou igual a 0
-      cart[index].quantity = 0;
-    } else {
-      cart[index].quantity = Number(cart[index].quantity) + quantity; // Define a quantidade de items
-      cart[index].subTotal = Number(cart[index].quantity) * cart[index].price;
-    }
-    cart[index].quantity = String(cart[index].quantity); // Converte pra string novamente (Não sei se precisa!)
+    cart[index].quantity = Number(cart[index].quantity) + 1;
+    cart[index].subTotal = Number(cart[index].subTotal) + Number(product.price);
   }
 
-  localStorage.setItem('cartList', JSON.stringify(cart)); // Devolve pro localStorage
+  localStorage.setItem('cartList', JSON.stringify(cart));
+};
+
+export const handleCartDecrease = (product) => {
+  const cart = getCartItems();
+
+  const index = cart.findIndex((prod) => product.id === prod.id);
+
+  if (cart[index].quantity === 1) {
+    cart.splice(index, 1);
+  } else {
+    cart[index].quantity = Number(cart[index].quantity) - 1;
+    cart[index].subTotal = Number(cart[index].subTotal) - Number(cart[index].price);
+  }
+
+  localStorage.setItem('cartList', JSON.stringify(cart));
+};
+
+export const handleCartArbitrary = (product, newQuantity) => {
+  const cart = getCartItems();
+
+  const NOT_FOUND = -1;
+
+  const index = cart.findIndex((prod) => product.id === prod.id);
+
+  if (index === NOT_FOUND) {
+    if (newQuantity > 0) {
+      product.quantity = newQuantity;
+      product.subTotal = newQuantity * Number(product.price);
+
+      cart.push(product);
+    }
+  } else if (newQuantity <= 0) {
+    cart.splice(index, 1);
+  } else {
+    cart[index].quantity = newQuantity;
+    cart[index].subTotal = newQuantity * Number(cart[index].price);
+  }
+
+  console.log(cart);
+  localStorage.setItem('cartList', JSON.stringify(cart));
+};
+
+export const sumCart = () => {
+  const cart = getCartItems();
+  console.log(cart);
+  if (cart.length === 0) {
+    return 0;
+  }
+
+  const total = cart.reduce((acc, item) => {
+    acc += item.subTotal;
+    return acc;
+  }, 0);
+
+  return total.toFixed(2).replace('.', ',');
 };
