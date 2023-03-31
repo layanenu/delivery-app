@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { handleCart } from '../services/localStorageUtils';
 
-function ProductCard(props) {
+function ProductCard({ produto }) {
   const [quantidade, setQuantidade] = useState(0);
 
   const customerProducts = 'customer_products__';
@@ -15,7 +16,7 @@ function ProductCard(props) {
   const rmItem = -1;
   const addItem = 1;
 
-  const { produto } = props;
+  // const { produto } = props;
   const { id, name, price, url_image: urlImage } = produto;
   const newPrice = price.replace('.', ',');
 
@@ -50,5 +51,16 @@ function ProductCard(props) {
     </div>
   );
 }
+
+ProductCard.propTypes = {
+  produto: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    price: PropTypes.shape({
+      replace: PropTypes.func,
+    }).isRequired,
+    url_image: PropTypes.string,
+  }).isRequired,
+};
 
 export default ProductCard;

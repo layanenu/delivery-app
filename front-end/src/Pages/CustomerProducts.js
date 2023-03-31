@@ -6,8 +6,8 @@ import { requestData } from '../services/request';
 
 function CustomerProducts() {
   const [cartItems, setCartItems] = useState([]);
-
   const [produtos, setProdutos] = useState([]);
+
   useEffect(() => {
     async function fetchData() {
       const result = await requestData('/products');
@@ -18,6 +18,7 @@ function CustomerProducts() {
 
     const cart = getCartItems();
     setCartItems(cart);
+    console.log(cartItems);
   }, []);
   return (
     <div>
