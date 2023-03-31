@@ -8,9 +8,13 @@ function CustomerProducts() {
   const [cartItems, setCartItems] = useState([]);
 
   const [produtos, setProdutos] = useState([]);
-  useEffect(async () => {
-    const result = await requestData('/products');
-    setProdutos(result);
+  useEffect(() => {
+    async function fetchData() {
+      const result = await requestData('/products');
+      setProdutos(result);
+    }
+
+    fetchData();
 
     const cart = getCartItems();
     setCartItems(cart);
