@@ -35,6 +35,11 @@ function ProductCard({ produto }) {
     }
   };
 
+  const handleInputChange = ({ target }) => {
+    setQuantidade(target.value);
+    handleCart(produto, quantidade);
+  };
+
   return (
     <div>
       <img
@@ -58,6 +63,7 @@ function ProductCard({ produto }) {
         type="number"
         data-testid={ `${inputQuantity}${id}` }
         value={ quantidade }
+        onChange={ handleInputChange }
       />
       <button
         type="button"
@@ -76,9 +82,7 @@ ProductCard.propTypes = {
   produto: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
-    price: PropTypes.shape({
-      replace: PropTypes.func,
-    }).isRequired,
+    price: PropTypes.string,
     url_image: PropTypes.string,
   }).isRequired,
 };
