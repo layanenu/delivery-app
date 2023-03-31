@@ -38,6 +38,7 @@ function CustomerProducts() {
           type="button"
           data-testid={ `${customerProducts}button-cart` }
           onClick={ () => history.push('/customer/checkout') }
+          disabled={ !totalCart }
         >
           VER CARRINHO: R$
           {' '}
