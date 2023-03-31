@@ -6,12 +6,12 @@ import { requestData } from '../services/request';
 
 function CustomerProducts() {
   const [cartItems, setCartItems] = useState([]);
-  const [produtos, setProdutos] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       const result = await requestData('/products');
-      setProdutos(result);
+      setProducts(result);
     }
 
     fetchData();
@@ -23,7 +23,7 @@ function CustomerProducts() {
   return (
     <div>
       <Navbar />
-      {produtos.map((produto) => <ProductCard key={ produto.id } produto={ produto } />)}
+      {products.map((product) => <ProductCard key={ product.id } product={ product } />)}
     </div>
   );
 }
