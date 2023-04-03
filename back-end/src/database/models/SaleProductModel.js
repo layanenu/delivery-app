@@ -1,14 +1,26 @@
 const SaleProduct = (sequelize, DataTypes) => {
   const saleProduct = sequelize.define('SaleProduct',
   {
-    sale_id: {
+    saleId: {
       type: DataTypes.INTEGER,
       foreignKey: true,
+      references: {
+        model: 'sales',
+        key: 'id'
+      }
     },
-    product_id: {
+    productId: {
       type: DataTypes.INTEGER,
       foreignKey: true,
-    }
+      references: {
+        model: 'products',
+        key: 'id'
+      }
+    },
+    quantity: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
   },
   {
     tableName: 'sales_products',

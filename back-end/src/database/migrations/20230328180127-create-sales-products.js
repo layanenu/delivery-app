@@ -11,7 +11,8 @@ module.exports = {
           key: 'id'
         },
         onUpdate: "CASCADE",
-        onDelete: "CASCADE"
+        onDelete: "CASCADE",
+        // field: 'sale_id',
       },
       product_id: {
         allowNull: false,
@@ -21,7 +22,8 @@ module.exports = {
           key: 'id'
         },
         onUpdate: "CASCADE",
-        onDelete: "CASCADE"
+        onDelete: "CASCADE",
+        // field: 'product_id',
       },
       quantity: {
         allowNull: false,
