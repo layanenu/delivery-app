@@ -70,7 +70,6 @@ export const handleCartArbitrary = (product, newQuantity) => {
 
 export const sumCart = () => {
   const cart = getCartItems();
-  console.log(cart);
   if (cart.length === 0) {
     return 0;
   }
@@ -79,6 +78,6 @@ export const sumCart = () => {
     acc += item.subTotal;
     return acc;
   }, 0);
-
+  console.log(total);
   return total.toFixed(2).replace('.', ',');
 };

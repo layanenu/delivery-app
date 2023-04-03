@@ -1,10 +1,15 @@
-import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import React, { useMemo, useState } from 'react';
 
 import AppContext from './AppContext';
 
 function AppProvider({ children }) {
   const [totalCart, setTotalCart] = useState(0);
+  const [cart, setCart] = useState([]);
+
+  const updateCart = (newCart) => {
+    setCart(newCart);
+  };
 
   const updateCartValue = (newValue) => {
     setTotalCart(newValue);
@@ -13,7 +18,9 @@ function AppProvider({ children }) {
   const context = useMemo(() => ({
     totalCart,
     updateCartValue,
-  }), [totalCart]);
+    cart,
+    updateCart,
+  }), [totalCart, cart]);
 
   return (
     <AppContext.Provider value={ context }>
