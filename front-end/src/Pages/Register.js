@@ -32,7 +32,7 @@ function Register() {
 
       setToken(user.token);
 
-      localStorage.setItem('user', user);
+      localStorage.setItem('user', JSON.stringify(user));
       history.push('/customer/products');
     } catch (error) {
       console.log(error);
