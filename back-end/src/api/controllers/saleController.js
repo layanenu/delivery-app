@@ -7,9 +7,15 @@ const create = async (req, res) => {
 };
 
 const getSalesByCustomer = async (req, res) => {
-  const userId = Number(req.params.userid);
+  const userId = Number(req.params.id);
   const response = await service.getSalesByCustomer(userId);
   return res.status(200).json(response);
 };
 
-module.exports = { create, getSalesByCustomer };
+const getSalesBySeller = async (req, res) => {
+  const sellerId = Number(req.params.id);
+  const response = await service.getSalesByCustomer(sellerId);
+  return res.status(200).json(response);
+};
+
+module.exports = { create, getSalesByCustomer, getSalesBySeller };
