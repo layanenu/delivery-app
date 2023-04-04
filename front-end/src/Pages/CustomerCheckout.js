@@ -13,6 +13,7 @@ function CustomerCheckout() {
   const enderecoNum = 'input-address-number';
   const btnEnviar = 'button-submit-order';
   const totalPedido = 'element-order-total-price';
+
   const { cart, updateCart } = useContext(AppContext);
   const { totalCart, updateCartValue } = useContext(AppContext);
   const history = useHistory();
