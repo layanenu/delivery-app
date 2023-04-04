@@ -42,4 +42,9 @@ const create = async (sale) => {
   return result;
 };
 
-module.exports = { create };
+const getSalesByCustomer = async (userId) => {
+  const result = await Sale.findAll({ where: { userId } });
+  return result;
+};
+
+module.exports = { create, getSalesByCustomer };

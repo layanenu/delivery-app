@@ -6,4 +6,10 @@ const create = async (req, res) => {
   return res.status(201).json(response);
 };
 
-module.exports = { create };
+const getSalesByCustomer = async (req, res) => {
+  const userId = Number(req.params.userid);
+  const response = await service.getSalesByCustomer(userId);
+  return res.status(200).json(response);
+};
+
+module.exports = { create, getSalesByCustomer };
