@@ -42,4 +42,14 @@ const create = async (sale) => {
   return result;
 };
 
-module.exports = { create };
+const getSalesByCustomer = async (userId) => {
+  const result = await Sale.findAll({ where: { userId } });
+  return result;
+};
+
+const getSalesBySeller = async (sellerId) => {
+  const result = await Sale.findAll({ where: { sellerId } });
+  return result;
+};
+
+module.exports = { create, getSalesByCustomer, getSalesBySeller };
