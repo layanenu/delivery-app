@@ -1,9 +1,13 @@
 const service = require('../services/salesService');
 
-const create = async (req, res) => {
-  const data = { ...req.body, userId: res.locals.userId };
-  const response = await service.create(data);
-  return res.status(201).json(response);
+const create = async (req, res, next) => {
+  try {
+    const data = { ...req.body, userId: res.locals.userId };
+    const response = await service.create(data);
+    res.status(201).json(response);
+  } catch (error) {
+    next(error);
+  } 
 };
 
 const getSalesByCustomer = async (req, res) => {
