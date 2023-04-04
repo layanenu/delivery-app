@@ -31,7 +31,7 @@ function ProductCard({ product }) {
   const buttonAddItem = 'button-card-add-item-';
   const inputQuantity = 'customer_products__input-card-quantity-';
 
-  const { id, name, price, url_image: urlImage } = product;
+  const { id, name, price, urlImage } = product;
   const newPrice = price.replace('.', ',');
 
   const handleDecrease = () => {
@@ -105,7 +105,7 @@ ProductCard.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     price: PropTypes.string,
-    url_image: PropTypes.string,
+    urlImage: PropTypes.string,
   }).isRequired,
 };
 
