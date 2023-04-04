@@ -13,7 +13,7 @@ const tokenValidation = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, secret);
-    console.log(decoded);
+    res.locals.userId = decoded.data.id;
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Expired or invalid' });
