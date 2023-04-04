@@ -6,35 +6,35 @@ const Sale = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER
     },
-    user_id: {
+    userId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       foreignKey: true,
     },
-    seller_id: {
+    sellerId: {
       allowNull: false,
       type: DataTypes.INTEGER,
       foreignKey: true,
     },
-    total_price: {
+    totalPrice: {
       allowNull: false,
       type: DataTypes.DECIMAL,
     },
-    delivery_address:{
+    deliveryAddress:{
       allowNull: false,
       type: DataTypes.STRING,
     },
-    delivery_number: {
+    deliveryNumber: {
       allowNull: false,
       type: DataTypes.STRING,
     },
-    sale_date: {
+    saleDate: {
       allowNull: false,
       type: DataTypes.DATE,
     },
     status:{
-      allowNull: false,
       type: DataTypes.STRING,
+      defaultValue: 'Pendente'
     }
   },
   {
@@ -46,11 +46,11 @@ const Sale = (sequelize, DataTypes) => {
 
   sale.associate = (models) => {
     sale.belongsTo(models.User, {
-      foreignKey: 'user_id', as: 'customer'
+      foreignKey: 'userId', as: 'customer'
     });
 
     sale.belongsTo(models.User, {
-      foreignKey: 'seller_id', as: 'seller'
+      foreignKey: 'sellerId', as: 'seller'
     });
   }
 
