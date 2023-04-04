@@ -35,19 +35,12 @@ function CustomerCheckout() {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   const user = JSON.parse(localStorage.getItem('user'));
-  //   setUserId(user.id);
-  // }, []);
-
   useEffect(() => {
     setSelectedSeller(sellers[0]);
   }, [sellers]);
 
   const insertSale = async () => {
-    // console.log('to indo chamar o backend');
     const { token } = JSON.parse(localStorage.getItem('user'));
-
     const { id } = await requestWithToken('/sales', {
       sellerId: Number(selectedSeller.id),
       totalPrice: totalCart,
@@ -56,7 +49,6 @@ function CustomerCheckout() {
       products: cart,
     }, token);
 
-    console.log(id);
     history.push(`/customer/orders/${id}`);
   };
 
@@ -77,10 +69,10 @@ function CustomerCheckout() {
       <select
         data-testid={ `${checkout}${vendedor}` }
         value={ selectedSeller }
-        onChange={ setSeller }
+        onClick={ setSeller }
       >
         {sellers.map((seller) => (
-          <option value={ seller } key={ seller.id }>{seller.name}</option>))}
+          <option value={ seller.id } key={ seller.id }>{seller.name}</option>))}
       </select>
       <input
         type="text"
@@ -98,6 +90,7 @@ function CustomerCheckout() {
         type="button"
         data-testid={ `${checkout}${btnEnviar}` }
         onClick={ insertSale }
+        disabled={ cart.length < 1 }
       >
         FINALIZAR_PEDIDO
       </button>
