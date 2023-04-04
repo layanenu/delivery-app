@@ -1,7 +1,7 @@
 const service = require('../services/salesService');
 
 const create = async (req, res) => {
-  const data = { ...req.body, userId: req.locals.userId };
+  const data = { ...req.body, userId: res.locals.userId };
   const response = await service.create(data);
   return res.status(201).json(response);
 };

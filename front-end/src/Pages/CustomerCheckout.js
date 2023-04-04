@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import ProductCheckout from '../components/ProductCheckout';
 import AppContext from '../context/AppContext';
 import { getCartItems, sumCart } from '../services/localStorageUtils';
-import { requestData, requestLogin } from '../services/request';
+import { requestData, requestWithToken } from '../services/request';
 
 function CustomerCheckout() {
   const checkout = 'customer_checkout__';
@@ -20,7 +20,7 @@ function CustomerCheckout() {
   const [selectedSeller, setSelectedSeller] = useState(0);
   const [address, setAddres] = useState('');
   const [addressNumber, setAddresnumber] = useState(0);
-  const [userId, setUserId] = useState(0);
+  // const [userId, setUserId] = useState(0);
 
   useEffect(() => {
     updateCart(getCartItems());
@@ -34,26 +34,29 @@ function CustomerCheckout() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    setUserId(user.id);
-  }, []);
+  // useEffect(() => {
+  //   const user = JSON.parse(localStorage.getItem('user'));
+  //   setUserId(user.id);
+  // }, []);
 
   useEffect(() => {
     setSelectedSeller(sellers[0]);
   }, [sellers]);
 
   const insertSale = async () => {
-    const response = await requestLogin('/sales', {
+    // console.log('to indo chamar o backend');
+    const { token } = JSON.parse(localStorage.getItem('user'));
+
+    const { id } = await requestWithToken('/sales', {
       sellerId: Number(selectedSeller.id),
       totalPrice: totalCart,
       deliveryAddress: address,
       deliveryNumber: Number(addressNumber),
-      userId: Number(userId),
       products: cart,
-    });
-    console.log(response);
-    history.push(`/customer/orders/${response.id}`);
+    }, token);
+
+    console.log(id);
+    history.push(`/customer/orders/${id}`);
   };
 
   const setSeller = (e) => {
@@ -93,7 +96,7 @@ function CustomerCheckout() {
       <button
         type="button"
         data-testid={ `${checkout}${btnEnviar}` }
-        onClick={ () => insertSale() }
+        onClick={ insertSale }
       >
         FINALIZAR_PEDIDO
       </button>
