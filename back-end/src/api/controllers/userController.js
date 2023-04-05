@@ -10,4 +10,14 @@ const getUsers = async (_req, res) => {
   return res.status(200).send(response);
 };
 
-module.exports = { getSellers, getUsers };
+const remove = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    await service.remove(email);
+    res.sendStatus(204);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getSellers, getUsers, remove };

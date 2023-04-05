@@ -17,4 +17,8 @@ const getUsers = async () => {
   return users;
 };
 
-module.exports = { getSellers, getUsers };
+const remove = async (email) => {
+  await User.destroy({ where: { email } });
+};
+
+module.exports = { getSellers, getUsers, remove };

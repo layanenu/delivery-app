@@ -15,6 +15,7 @@ const tokenValidation = (req, res, next) => {
       throw new Error();
     }
     res.locals.userId = decoded.data.id;
+    res.locals.role = decoded.data.role;
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Expired or invalid' });
