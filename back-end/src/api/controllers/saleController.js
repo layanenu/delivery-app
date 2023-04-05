@@ -22,4 +22,10 @@ const getSalesBySeller = async (req, res) => {
   return res.status(200).json(response);
 };
 
-module.exports = { create, getSalesByCustomer, getSalesBySeller };
+const getSalesWithDetails = async (req, res) => {
+  const { id } = req.params;
+  const sale = await service.getSalesWithDetails(Number(id));
+  return res.status(200).json(sale);
+};
+
+module.exports = { create, getSalesByCustomer, getSalesBySeller, getSalesWithDetails };

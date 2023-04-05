@@ -1,4 +1,4 @@
-const { Sale, SaleProduct, sequelize } = require('../../database/models');
+const { Sale, User, SaleProduct, Product, sequelize } = require('../../database/models');
 
 const fixPrice = (price) => Number(price.replace(',', '.'));
    
@@ -33,4 +33,35 @@ const getSalesBySeller = async (sellerId) => {
   return result;
 };
 
-module.exports = { create, getSalesByCustomer, getSalesBySeller };
+const mapSales = (rawSale) => ({
+    id: rawSale.id,
+    sellerName: rawSale.seller.name,
+    saleDate: new Date(rawSale.saleDate).toLocaleDateString('PT-BR'),
+    status: rawSale.status,
+    products: rawSale.products.map((product) => ({ 
+        name: product.name, 
+        price: product.price, 
+        quantity: product.SaleProduct.quantity,
+        total: Number(product.price) * product.SaleProduct.quantity, 
+      })),
+  });
+
+const getSalesWithDetails = async (saleId) => {
+ const rawSale = await Sale.findOne({ 
+    where: { id: saleId },
+    include: [
+      { model: User, as: 'seller', attributes: ['name'] },
+      { model: Product, as: 'products', attributes: ['name', 'price'] },
+    ],
+  }); 
+
+  const sale = mapSales(rawSale);
+
+  return sale;
+};
+
+module.exports = { 
+  create, 
+  getSalesByCustomer, 
+  getSalesBySeller, 
+  getSalesWithDetails };
