@@ -5,7 +5,7 @@ import ProductCheckout from '../components/ProductCheckout';
 import { requestData } from '../services/request';
 
 function CustomerOrder(props) {
-  const { id } = props;
+  const { id } = props.match.params;
 
   const orderDetails = 'customer_order_details__';
   const item = 'element-order-table-item-number-';
@@ -37,7 +37,6 @@ function CustomerOrder(props) {
   useEffect(() => {
     const total = sale.products.reduce((acc, obj) => {
       acc += obj.subTotal;
-      console.log(obj);
       return acc;
     }, 0);
     setTotalCart(total.toFixed(2).replace('.', ','));
@@ -46,6 +45,22 @@ function CustomerOrder(props) {
   return (
     <div>
       <Navbar />
+      <div>
+        <span data-testid={ `${orderDetails}${orderId}` }>
+          Pedido:
+          {' '}
+          {sale.id}
+        </span>
+        <span data-testid={ `${orderDetails}${sellerName}` }>{sale.sellerName}</span>
+        <span data-testid={ `${orderDetails}${orderDate}` }>{sale.saleDate}</span>
+        <span data-testid={ `${orderDetails}${deliveryStatus}` }>{sale.status}</span>
+        <button
+          data-testid={ `${orderDetails}${deliveryCheck}` }
+          type="button"
+        >
+          MARCAR COMO ENTREGUE
+        </button>
+      </div>
       {sale.products.map((product, index) => (
         <ProductCheckout
           key={ index }
