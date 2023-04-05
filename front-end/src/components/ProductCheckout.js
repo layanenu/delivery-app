@@ -5,15 +5,9 @@ import AppContext from '../context/AppContext';
 import { getCartItems, sumCart } from '../services/localStorageUtils';
 
 function ProductCheckout(props) {
-  const { product, index } = props;
-  const checkout = 'customer_checkout__';
-  const item = 'element-order-table-item-number-';
-  const name = 'element-order-table-name-';
-  const quantidade = 'element-order-table-quantity-';
-  const preco = 'element-order-table-unit-price-';
-  const subTotal = 'element-order-table-sub-total-';
-  const remove = 'element-order-table-remove-';
+  const { product, index, page, item, name, quantidade, preco, subTotal } = props;
 
+  const remove = 'element-order-table-remove-';
   const history = useHistory();
   const { cart, updateCart, updateCartValue } = useContext(AppContext);
   const [isCheckout, setIsCheckout] = useState(false);
@@ -28,7 +22,7 @@ function ProductCheckout(props) {
   const rmvBtn = (
     <button
       type="button"
-      data-testid={ `${checkout}${remove}${index}` }
+      data-testid={ `${page}${remove}${index}` }
       onClick={ rmvProduct }
     >
       Remover
@@ -42,15 +36,15 @@ function ProductCheckout(props) {
 
   return (
     <div>
-      <span data-testid={ `${checkout}${item}${index}` }>{index + 1}</span>
-      <span data-testid={ `${checkout}${name}${index}` }>{product.name}</span>
-      <span data-testid={ `${checkout}${quantidade}${index}` }>
+      <span data-testid={ `${page}${item}${index}` }>{index + 1}</span>
+      <span data-testid={ `${page}${name}${index}` }>{product.name}</span>
+      <span data-testid={ `${page}${quantidade}${index}` }>
         {product.quantity}
       </span>
-      <span data-testid={ `${checkout}${preco}${index}` }>
+      <span data-testid={ `${page}${preco}${index}` }>
         {product.price.replace('.', ',')}
       </span>
-      <span data-testid={ `${checkout}${subTotal}${index}` }>
+      <span data-testid={ `${page}${subTotal}${index}` }>
         {String(product.subTotal.toFixed(2)).replace('.', ',')}
       </span>
       {isCheckout ? rmvBtn : null}
@@ -69,6 +63,12 @@ ProductCheckout.propTypes = {
     subTotal: PropTypes.number,
   }).isRequired,
   index: PropTypes.number.isRequired,
+  page: PropTypes.string.isRequired,
+  item: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  quantidade: PropTypes.string.isRequired,
+  preco: PropTypes.string.isRequired,
+  subTotal: PropTypes.string.isRequired,
 };
 
 export default ProductCheckout;
