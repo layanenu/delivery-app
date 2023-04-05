@@ -23,7 +23,6 @@ function OrderCard(order) {
         data-testid={ `${customerOrders}${orderPrice}${id}` }
       >
         {`R$ ${totalPrice.replace('.', ',')}`}
-
       </span>
     </div>
   );

@@ -25,35 +25,35 @@ function Navbar() {
     setName(user.name);
   }, []);
   return (
-    (role === 'customer') ? (
-      <nav>
-        <div>
+    <nav>
+      <div>
+        {(role === 'customer') ? (
           <Link
             data-testid={ `${customerProducts}${elementNavbar}${linkProducts}` }
             to="/customer/products"
           >
             PRODUTOS
-          </Link>
-          <Link
-            data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
-            to="/customer/orders"
-          >
-            MEUS PEDIDOS
-          </Link>
-          <p
-            data-testid={ `${customerProducts}${elementNavbar}${userFullName}` }
-          >
-            {name}
-          </p>
-          <button
-            type="button"
-            data-testid={ `${customerProducts}${elementNavbar}${linkLogout}` }
-            onClick={ (e) => handleLogout(e) }
-          >
-            Sair
-          </button>
-        </div>
-      </nav>) : null
+          </Link>) : null}
+        <Link
+          data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
+          to="/customer/orders"
+        >
+          MEUS PEDIDOS
+        </Link>
+        <p
+          data-testid={ `${customerProducts}${elementNavbar}${userFullName}` }
+        >
+          {name}
+        </p>
+        <button
+          type="button"
+          data-testid={ `${customerProducts}${elementNavbar}${linkLogout}` }
+          onClick={ (e) => handleLogout(e) }
+        >
+          Sair
+        </button>
+      </div>
+    </nav>
   );
 }
 
