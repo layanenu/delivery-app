@@ -7,6 +7,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
 
   const commonLogin = 'common_login__';
   const inputEmail = 'input-email';
@@ -25,6 +26,14 @@ function Login() {
   useEffect(() => {
     emailIsValid = email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
   }, [email]);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setIsLogged(true);
+      history.push('/customer/products');
+    }
+  }, []);
 
   const loginButton = async (e) => {
     e.preventDefault();

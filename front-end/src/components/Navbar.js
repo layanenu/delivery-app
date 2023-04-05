@@ -30,13 +30,13 @@ function Navbar() {
         <div>
           <Link
             data-testid={ `${customerProducts}${elementNavbar}${linkProducts}` }
-            to="/search"
+            to="/customer/products"
           >
             PRODUTOS
           </Link>
           <Link
             data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
-            to="/favorites"
+            to="/customer/orders"
           >
             MEUS PEDIDOS
           </Link>
