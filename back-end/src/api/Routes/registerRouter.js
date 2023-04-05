@@ -5,6 +5,7 @@ const {
   validatePassword,
   validateEmail,
 } = require('../middlewares/userValidate');
+const { roleValidation } = require('../middlewares/roleValidation');
 
 const router = Router();
 
@@ -13,6 +14,7 @@ router.post(
   validateName,
   validatePassword,
   validateEmail,
+  roleValidation,
   controller.register,
 );
 
