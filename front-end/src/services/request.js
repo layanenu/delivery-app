@@ -18,4 +18,9 @@ export const requestLogin = async (endpoint, body) => {
   return data;
 };
 
+export const requestWithToken = async (endpoint, body, token) => {
+  setToken(token);
+  const { data } = await api.post(endpoint, body);
+  return data;
+};
 export default api;
