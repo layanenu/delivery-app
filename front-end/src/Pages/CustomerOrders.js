@@ -8,6 +8,9 @@ function CustomerOrders() {
   const [orders, setOrders] = useState([]);
   const history = useHistory();
 
+  const customerOrders = 'customer_orders__';
+  const role = 'customer';
+
   useEffect(() => {
     const { id } = JSON.parse(localStorage.getItem('user'));
     async function fetchData() {
@@ -31,6 +34,8 @@ function CustomerOrders() {
         >
           <OrderCard
             { ...order }
+            page={ customerOrders }
+            role={ role }
           />
         </button>
       )) : <p>Não há pedidos</p> }

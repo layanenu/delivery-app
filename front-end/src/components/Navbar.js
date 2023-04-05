@@ -34,12 +34,21 @@ function Navbar() {
           >
             PRODUTOS
           </Link>) : null}
-        <Link
-          data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
-          to="/customer/orders"
-        >
-          MEUS PEDIDOS
-        </Link>
+        {(role === 'customer') ? (
+          <Link
+            data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
+            to="/customer/orders"
+          >
+            MEUS PEDIDOS
+          </Link>
+        ) : (
+          <Link
+            data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
+            to="/seller/orders"
+          >
+            MEUS PEDIDOS
+          </Link>
+        )}
         <p
           data-testid={ `${customerProducts}${elementNavbar}${userFullName}` }
         >
