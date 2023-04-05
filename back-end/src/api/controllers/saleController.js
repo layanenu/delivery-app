@@ -28,4 +28,16 @@ const getSalesWithDetails = async (req, res) => {
   return res.status(200).json(sale);
 };
 
-module.exports = { create, getSalesByCustomer, getSalesBySeller, getSalesWithDetails };
+const updateStatus = async (req, res) => {
+  const { status } = req.body;
+  const { id } = req.params;
+  await service.updateStatus(status, id);
+  res.status(200).json({ status });
+};
+
+module.exports = { 
+  create, 
+  getSalesByCustomer, 
+  getSalesBySeller, 
+  getSalesWithDetails, 
+  updateStatus };
