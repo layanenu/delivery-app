@@ -14,6 +14,12 @@ function CustomerCheckout() {
   const btnEnviar = 'button-submit-order';
   const totalPedido = 'element-order-total-price';
 
+  const item = 'element-order-table-item-number-';
+  const name = 'element-order-table-name-';
+  const quantidade = 'element-order-table-quantity-';
+  const preco = 'element-order-table-unit-price-';
+  const subTotal = 'element-order-table-sub-total-';
+
   const { cart, updateCart } = useContext(AppContext);
   const { totalCart, updateCartValue } = useContext(AppContext);
   const history = useHistory();
@@ -59,7 +65,17 @@ function CustomerCheckout() {
     <div>
       <Navbar />
       {cart.map((product, index) => (
-        <ProductCheckout key={ index } product={ product } index={ index } />
+        <ProductCheckout
+          key={ index }
+          product={ product }
+          index={ index }
+          page={ checkout }
+          item={ item }
+          name={ name }
+          quantidade={ quantidade }
+          preco={ preco }
+          subTotal={ subTotal }
+        />
       ))}
       <button type="button">
         TOTAL: R$
