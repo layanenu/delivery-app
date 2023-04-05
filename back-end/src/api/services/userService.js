@@ -9,4 +9,12 @@ const getSellers = async () => {
   return sellers;
 };
 
-module.exports = { getSellers };
+const getUsers = async () => {
+  const users = await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
+  if (!users) return null;
+  return users;
+};
+
+module.exports = { getSellers, getUsers };
