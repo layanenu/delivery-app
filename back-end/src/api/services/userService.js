@@ -9,4 +9,16 @@ const getSellers = async () => {
   return sellers;
 };
 
-module.exports = { getSellers };
+const getUsers = async () => {
+  const users = await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
+  if (!users) return null;
+  return users;
+};
+
+const remove = async (email) => {
+  await User.destroy({ where: { email } });
+};
+
+module.exports = { getSellers, getUsers, remove };
