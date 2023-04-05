@@ -42,7 +42,7 @@ const mapSales = (rawSale) => ({
         name: product.name, 
         price: product.price, 
         quantity: product.SaleProduct.quantity,
-        total: Number(product.price) * product.SaleProduct.quantity, 
+        subTotal: Number(product.price) * product.SaleProduct.quantity, 
       })),
   });
 

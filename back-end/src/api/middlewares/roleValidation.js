@@ -4,9 +4,11 @@ const roleValidation = async (req, res, next) => {
   if (!role) {
     req.body.role = 'customer';
   }
+
   if (validRoles.includes(role)) {
     return next();
   }
+  
   return res.sendStatus(400);
 };
 
