@@ -57,6 +57,7 @@ function CustomerOrder(props) {
         <button
           data-testid={ `${orderDetails}${deliveryCheck}` }
           type="button"
+          disabled
         >
           MARCAR COMO ENTREGUE
         </button>
