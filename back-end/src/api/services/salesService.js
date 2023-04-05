@@ -60,8 +60,17 @@ const getSalesWithDetails = async (saleId) => {
   return sale;
 };
 
+const updateStatus = async (newStatus, saleId) => {
+  await Sale.update(
+    { status: newStatus },
+    { where: { id: saleId } },
+    );
+};
+
 module.exports = { 
   create, 
   getSalesByCustomer, 
   getSalesBySeller, 
-  getSalesWithDetails };
+  getSalesWithDetails,
+  updateStatus, 
+};
