@@ -2,13 +2,13 @@ const md5 = require('md5');
 const { User } = require('../../database/models');
 const { tokenGenerate } = require('../utils/JWT');
 
-async function register(name, email, password) {
+async function register(name, email, password, role) {
   try {
     const user = await User.create({
       name,
       email,
       password: md5(password),
-      role: 'customer',
+      role,
     });
     
     const token = tokenGenerate(user);
