@@ -4,9 +4,7 @@ import Navbar from '../components/Navbar';
 import ProductCheckout from '../components/ProductCheckout';
 import { requestData } from '../services/request';
 
-function CustomerOrder(props) {
-  const { id } = props.match.params;
-
+function CustomerOrder({ match: { params: { id } } }) {
   const orderDetails = 'customer_order_details__';
   const item = 'element-order-table-item-number-';
   const name = 'element-order-table-name-';
@@ -84,8 +82,12 @@ function CustomerOrder(props) {
   );
 }
 
-// CustomerOrder.propTypes = {
-//   id: PropTypes.string.isRequired,
-// };
+CustomerOrder.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default CustomerOrder;
