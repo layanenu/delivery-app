@@ -26,6 +26,13 @@ function Login() {
     emailIsValid = email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
   }, [email]);
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      history.push('/customer/products');
+    }
+  }, []);
+
   const loginButton = async (e) => {
     e.preventDefault();
 
