@@ -4,22 +4,22 @@ import Navbar from '../components/Navbar';
 import OrderCard from '../components/OrderCard';
 import { requestData } from '../services/request';
 
-function CustomerOrders() {
+function SellerOrders() {
   const [orders, setOrders] = useState([]);
   const history = useHistory();
 
-  const customerOrders = 'customer_orders__';
-  const role = 'customer';
+  const sellerOrders = 'seller_orders__';
+  const role = 'seller';
 
   useEffect(() => {
     const { id } = JSON.parse(localStorage.getItem('user'));
+
     async function fetchData() {
-      const result = await requestData(`/sales/user/${id}`);
+      const result = await requestData(`/sales/seller/${id}`);
       setOrders(result);
     }
 
     fetchData();
-
     console.log(orders);
   }, []);
 
@@ -30,11 +30,11 @@ function CustomerOrders() {
         <button
           key={ order.id }
           type="button"
-          onClick={ () => history.push(`/customer/orders/${order.id}`) }
+          onClick={ () => history.push(`/seller/orders/${order.id}`) }
         >
           <OrderCard
             { ...order }
-            page={ customerOrders }
+            page={ sellerOrders }
             role={ role }
           />
         </button>
@@ -43,4 +43,4 @@ function CustomerOrders() {
   );
 }
 
-export default CustomerOrders;
+export default SellerOrders;

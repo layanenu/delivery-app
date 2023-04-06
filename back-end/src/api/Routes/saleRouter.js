@@ -7,7 +7,7 @@ const router = Router();
 
 router.post('/', tokenValidation, controller.create);
 router.get('/user/:id', controller.getSalesByCustomer);
-router.get('/seller/:id', controller.getSalesByCustomer);
+router.get('/seller/:id', controller.getSalesBySeller);
 router.get('/:id', controller.getSalesWithDetails);
 router.put('/status/:id', statusValidation, controller.updateStatus);
 

@@ -42,7 +42,11 @@ function Login() {
       setToken(user.token);
 
       localStorage.setItem('user', JSON.stringify(user));
-      history.push('/customer/products');
+      if (user.role === 'seller') {
+        history.push('/seller/orders');
+      } else {
+        history.push('/customer/products');
+      }
     } catch (error) {
       setFailedTryLogin(true);
     }

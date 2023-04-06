@@ -18,7 +18,7 @@ const getSalesByCustomer = async (req, res) => {
 
 const getSalesBySeller = async (req, res) => {
   const sellerId = Number(req.params.id);
-  const response = await service.getSalesByCustomer(sellerId);
+  const response = await service.getSalesBySeller(sellerId);
   return res.status(200).json(response);
 };
 
