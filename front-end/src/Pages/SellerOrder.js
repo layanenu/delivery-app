@@ -1,10 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Navbar from '../components/Navbar';
-import { requestData } from '../services/request';
+import { requestData, requestUpdate } from '../services/request';
+import ProductCheckout from '../components/ProductCheckout';
+import { sum } from '../services/localStorageUtils';
 
 function SellerOrder({ match: { params: { id } } }) {
-  const [order, setOrder] = useState([]);
+  const orderDetails = 'seller_order_details__';
+  const item = 'element-order-table-item-number-';
+  const name = 'element-order-table-name-';
+  const quantidade = 'element-order-table-quantity-';
+  const preco = 'element-order-table-unit-price-';
+  const subTotal = 'element-order-table-sub-total-';
+  const totalPedido = 'element-order-total-price';
+  const orderId = 'element-order-details-label-order-id';
+  // const sellerName = 'element-order-details-label-seller-name';
+  const orderDate = 'element-order-details-label-order-date';
+  const deliveryStatus = 'element-order-details-label-delivery-status';
+  const preparingCheck = 'button-preparing-check';
+  const dispatchCheck = 'button-dispatch-check';
+
+  const [order, setOrder] = useState({ products: [] });
+  const [totalValue, setTotalValue] = useState(0);
+  // const [orderStatus, setOrderStatus] = useState('pending');
 
   useEffect(() => {
     async function fetchOrder() {
@@ -16,9 +34,62 @@ function SellerOrder({ match: { params: { id } } }) {
     console.log(order);
   }, []);
 
+  useEffect(() => {
+    const total = sum(order.products);
+    setTotalValue(total);
+  }, [order]);
+
+  const updateStatus = async (newStatus) => {
+    await requestUpdate(`/sales/status/${id}`, { status: newStatus });
+  };
+
   return (
     <div>
       <Navbar />
+      <div>
+        <span data-testid={ `${orderDetails}${orderId}` }>
+          Pedido:
+          {' '}
+          {order.id}
+        </span>
+        {/* <span data-testid={ `${orderDetails}${sellerName}` }>{order.sellerName}</span> */}
+        <span data-testid={ `${orderDetails}${orderDate}` }>{order.saleDate}</span>
+        <span data-testid={ `${orderDetails}${deliveryStatus}` }>{order.status}</span>
+        <button
+          data-testid={ `${orderDetails}${preparingCheck}` }
+          type="button"
+          onClick={ () => updateStatus('Preparando') }
+          disabled={ order.status !== 'Pendente' }
+        >
+          PREPARAR PEDIDO
+        </button>
+        <button
+          data-testid={ `${orderDetails}${dispatchCheck}` }
+          type="button"
+          onClick={ () => updateStatus('Em Trânsito') }
+          disabled={ order.status !== 'Preparando' }
+        >
+          SAIU PARA ENTREGA
+        </button>
+      </div>
+      {order.products.map((product, index) => (
+        <ProductCheckout
+          key={ index }
+          product={ product }
+          index={ index }
+          page={ orderDetails }
+          item={ item }
+          name={ name }
+          quantidade={ quantidade }
+          preco={ preco }
+          subTotal={ subTotal }
+        />
+      ))}
+      <button type="button">
+        TOTAL: R$
+        {' '}
+        <p data-testid={ `${orderDetails}${totalPedido}` }>{totalValue}</p>
+      </button>
     </div>
 
   );
