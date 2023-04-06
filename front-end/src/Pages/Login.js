@@ -29,7 +29,16 @@ function Login() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-      history.push('/customer/products');
+      switch (user.role) {
+      case 'seller':
+        history.push('/seller/orders');
+        break;
+      case 'customer':
+        history.push('/customer/products');
+        break;
+      default:
+        break;
+      }
     }
   }, []);
 
@@ -40,12 +49,16 @@ function Login() {
       const user = await requestLogin('/login', { email, password });
       console.log(typeof user);
       setToken(user.token);
-
       localStorage.setItem('user', JSON.stringify(user));
-      if (user.role === 'seller') {
+      switch (user.role) {
+      case 'seller':
         history.push('/seller/orders');
-      } else {
+        break;
+      case 'customer':
         history.push('/customer/products');
+        break;
+      default:
+        break;
       }
     } catch (error) {
       setFailedTryLogin(true);
