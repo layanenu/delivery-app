@@ -46,6 +46,7 @@ function CustomerCheckout() {
   }, [sellers]);
 
   const insertSale = async () => {
+    console.log(selectedSeller.id);
     const { token } = JSON.parse(localStorage.getItem('user'));
     const { id } = await requestWithToken('/sales', {
       sellerId: Number(selectedSeller.id),

@@ -23,4 +23,10 @@ export const requestWithToken = async (endpoint, body, token) => {
   const { data } = await api.post(endpoint, body);
   return data;
 };
+
+export const requestUpdate = async (endpoint, body) => {
+  const { data } = await api.put(endpoint, body);
+  return data;
+};
+
 export default api;

@@ -13,20 +13,20 @@ function OrderCard(order) {
 
   return (
     <div>
-      <span data-testid={ `${page}${orderId}${id}` }>{id}</span>
-      <span data-testid={ `${page}${deliveryStatus}${id}` }>{status}</span>
-      <span
+      <p data-testid={ `${page}${orderId}${id}` }>{id}</p>
+      <p
         data-testid={ `${page}${orderDate}${id}` }
       >
         {newDate.toLocaleDateString('pt-BR')}
-      </span>
-      <span
+      </p>
+      <p data-testid={ `${page}${deliveryStatus}${id}` }>{status}</p>
+      <p
         data-testid={ `${page}${orderPrice}${id}` }
       >
         {`R$ ${totalPrice.replace('.', ',')}`}
-      </span>
+      </p>
       {role === 'seller' ? (
-        <span data-testid={ `${page}${address}${id}` }>{deliveryAddress}</span>
+        <p data-testid={ `${page}${address}${id}` }>{deliveryAddress}</p>
       ) : null }
     </div>
   );

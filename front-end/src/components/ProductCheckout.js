@@ -36,13 +36,13 @@ function ProductCheckout(props) {
 
   return (
     <div>
-      <span data-testid={ `${page}${item}${index}` }>{index + 1}</span>
-      <span data-testid={ `${page}${name}${index}` }>{product.name}</span>
+      <span data-testid={ `${page}${item}${index}` }>{`${index + 1} - `}</span>
+      <span data-testid={ `${page}${name}${index}` }>{`${product.name} - `}</span>
       <span data-testid={ `${page}${quantidade}${index}` }>
-        {product.quantity}
+        {`${product.quantity} - `}
       </span>
       <span data-testid={ `${page}${preco}${index}` }>
-        {product.price.replace('.', ',')}
+        {`${product.price.replace('.', ',')} - `}
       </span>
       <span data-testid={ `${page}${subTotal}${index}` }>
         {String(product.subTotal.toFixed(2)).replace('.', ',')}

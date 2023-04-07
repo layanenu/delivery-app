@@ -27,28 +27,45 @@ function Navbar() {
   return (
     <nav>
       <div>
-        {(role === 'customer') ? (
-          <Link
-            data-testid={ `${customerProducts}${elementNavbar}${linkProducts}` }
-            to="/customer/products"
-          >
-            PRODUTOS
-          </Link>) : null}
-        {(role === 'customer') ? (
-          <Link
-            data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
-            to="/customer/orders"
-          >
-            MEUS PEDIDOS
-          </Link>
-        ) : (
-          <Link
-            data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
-            to="/seller/orders"
-          >
-            MEUS PEDIDOS
-          </Link>
-        )}
+        {
+          (role === 'customer') ? (
+            <Link
+              data-testid={ `${customerProducts}${elementNavbar}${linkProducts}` }
+              to="/customer/products"
+            >
+              PRODUTOS
+            </Link>) : null
+        }
+        {
+          (role === 'customer') ? (
+            <Link
+              data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
+              to="/customer/orders"
+            >
+              MEUS PEDIDOS
+            </Link>
+          ) : null
+        }
+        {
+          (role === 'seller') ? (
+            <Link
+              data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
+              to="/seller/orders"
+            >
+              PEDIDOS
+            </Link>
+          ) : null
+        }
+        {
+          (role === 'administrator') ? (
+            <Link
+              to="/"
+            >
+              GERENCIAR USUÁRIOS
+            </Link>
+          ) : null
+        }
+
         <p
           data-testid={ `${customerProducts}${elementNavbar}${userFullName}` }
         >
