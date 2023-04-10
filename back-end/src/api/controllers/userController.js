@@ -17,6 +17,7 @@ const getUsersByAdmin = async (_req, res) => {
 
 const remove = async (req, res, next) => {
   try {
+    console.log(req);
     const { email } = req.body;
     await service.remove(email);
     res.sendStatus(204);

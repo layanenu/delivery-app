@@ -27,6 +27,7 @@ const getUsersByAdmin = async () => {
 };
 
 const remove = async (email) => {
+  console.log(email);
   await User.destroy({ where: { email } });
 };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
-import { requestData, requestWithToken } from '../services/request';
+import { requestData, requestDelete, requestWithToken } from '../services/request';
 
 function AdminManage() {
   const [name, setName] = useState('');
@@ -26,7 +26,7 @@ function AdminManage() {
   const minNameLenght = 12;
   const emailIsValid = email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
   async function fetchData() {
-    const result = await requestData('/users');
+    const result = await requestData('/users/admin');
     setUsers(result);
   }
 
@@ -59,7 +59,15 @@ function AdminManage() {
     }
   };
 
-  const rmvProduct = () => null;
+  const rmvUser = async (uEmail) => {
+    try {
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      await requestDelete('/users/delete', { email: uEmail }, token);
+      fetchData();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <div>
@@ -136,7 +144,7 @@ function AdminManage() {
             <button
               type="button"
               data-testid={ `${adminManage}${userRemove}${index}` }
-              onClick={ rmvProduct }
+              onClick={ () => rmvUser(user.email) }
             >
               Remover
             </button>
