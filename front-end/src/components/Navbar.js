@@ -59,7 +59,7 @@ function Navbar() {
         {
           (role === 'administrator') ? (
             <Link
-              to="/"
+              to="/admin/manage"
             >
               GERENCIAR USUÁRIOS
             </Link>

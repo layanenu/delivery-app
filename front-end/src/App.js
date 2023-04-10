@@ -1,14 +1,15 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import AdminManage from './Pages/AdminManage';
 import CustomerCheckout from './Pages/CustomerCheckout';
 import CustomerOrder from './Pages/CustomerOrder';
 import CustomerOrders from './Pages/CustomerOrders';
 import CustomerProducts from './Pages/CustomerProducts';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
-import SellerOrders from './Pages/SellerOrders';
 import SellerOrder from './Pages/SellerOrder';
+import SellerOrders from './Pages/SellerOrders';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/customer/orders" component={ CustomerOrders } />
       <Route exact path="/seller/orders" component={ SellerOrders } />
       <Route path="/seller/orders/:id" component={ SellerOrder } />
+      <Route path="/admin/manage" component={ AdminManage } />
     </Switch>
   );
 }

@@ -6,6 +6,8 @@ const {
   validateEmail,
 } = require('../middlewares/userValidate');
 const { roleValidation } = require('../middlewares/roleValidation');
+const { tokenValidation } = require('../middlewares/tokenValidation');
+const { verifyAdminPermission } = require('../middlewares/verifyAdminPermission');
 
 const router = Router();
 
@@ -15,6 +17,16 @@ router.post(
   validatePassword,
   validateEmail,
   roleValidation,
+  controller.register,
+);
+router.post(
+  '/admin',
+  tokenValidation,
+  validateName,
+  validatePassword,
+  validateEmail,
+  roleValidation,
+  verifyAdminPermission,
   controller.register,
 );
 
