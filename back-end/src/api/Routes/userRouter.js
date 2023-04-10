@@ -6,6 +6,7 @@ const { verifyAdminPermission } = require('../middlewares/verifyAdminPermission'
 const router = Router();
 
 router.get('/', controller.getUsers);
+router.get('/admin', controller.getUsersByAdmin);
 router.delete('/delete', tokenValidation, verifyAdminPermission, controller.remove);
 
 module.exports = router;

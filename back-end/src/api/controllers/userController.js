@@ -10,6 +10,11 @@ const getUsers = async (_req, res) => {
   return res.status(200).send(response);
 };
 
+const getUsersByAdmin = async (_req, res) => {
+  const response = await service.getUsersByAdmin();
+  return res.status(200).send(response);
+};
+
 const remove = async (req, res, next) => {
   try {
     const { email } = req.body;
@@ -20,4 +25,4 @@ const remove = async (req, res, next) => {
   }
 };
 
-module.exports = { getSellers, getUsers, remove };
+module.exports = { getSellers, getUsers, remove, getUsersByAdmin };
