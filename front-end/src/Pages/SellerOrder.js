@@ -22,12 +22,13 @@ function SellerOrder({ match: { params: { id } } }) {
 
   const [order, setOrder] = useState({ products: [] });
   const [totalValue, setTotalValue] = useState(0);
-  // const [orderStatus, setOrderStatus] = useState('pending');
+  const [orderStatus, setOrderStatus] = useState('');
 
   useEffect(() => {
     async function fetchOrder() {
       const response = await requestData(`/sales/${id}`);
       setOrder(response);
+      setOrderStatus(response.status);
       console.log(response);
     }
     fetchOrder();
@@ -40,7 +41,8 @@ function SellerOrder({ match: { params: { id } } }) {
   }, [order]);
 
   const updateStatus = async (newStatus) => {
-    await requestUpdate(`/sales/status/${id}`, { status: newStatus });
+    const { status } = await requestUpdate(`/sales/status/${id}`, { status: newStatus });
+    setOrderStatus(status);
   };
 
   return (
@@ -54,12 +56,12 @@ function SellerOrder({ match: { params: { id } } }) {
         </span>
         {/* <span data-testid={ `${orderDetails}${sellerName}` }>{order.sellerName}</span> */}
         <span data-testid={ `${orderDetails}${orderDate}` }>{order.saleDate}</span>
-        <span data-testid={ `${orderDetails}${deliveryStatus}` }>{order.status}</span>
+        <span data-testid={ `${orderDetails}${deliveryStatus}` }>{orderStatus}</span>
         <button
           data-testid={ `${orderDetails}${preparingCheck}` }
           type="button"
           onClick={ () => updateStatus('Preparando') }
-          disabled={ order.status !== 'Pendente' }
+          disabled={ orderStatus !== 'Pendente' }
         >
           PREPARAR PEDIDO
         </button>
@@ -67,7 +69,7 @@ function SellerOrder({ match: { params: { id } } }) {
           data-testid={ `${orderDetails}${dispatchCheck}` }
           type="button"
           onClick={ () => updateStatus('Em Trânsito') }
-          disabled={ order.status !== 'Preparando' }
+          disabled={ orderStatus !== 'Preparando' }
         >
           SAIU PARA ENTREGA
         </button>

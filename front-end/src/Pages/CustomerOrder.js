@@ -20,6 +20,7 @@ function CustomerOrder({ match: { params: { id } } }) {
 
   const [totalCart, setTotalCart] = useState(1);
   const [sale, setSale] = useState({ products: [] });
+  const [orderStatus, setOrderStatus] = useState('');
 
   useEffect(() => {
     console.log(id);
@@ -27,6 +28,7 @@ function CustomerOrder({ match: { params: { id } } }) {
       const result = await requestData(`/sales/${id}`);
       console.log(result);
       setSale(result);
+      setOrderStatus(result.status);
     }
 
     fetchData();
@@ -41,7 +43,8 @@ function CustomerOrder({ match: { params: { id } } }) {
   }, [sale]);
 
   const updateStatus = async (newStatus) => {
-    await requestUpdate(`/sales/status/${id}`, { status: newStatus });
+    const { status } = await requestUpdate(`/sales/status/${id}`, { status: newStatus });
+    setOrderStatus(status);
   };
 
   return (
@@ -55,11 +58,11 @@ function CustomerOrder({ match: { params: { id } } }) {
         </span>
         <span data-testid={ `${orderDetails}${sellerName}` }>{sale.sellerName}</span>
         <span data-testid={ `${orderDetails}${orderDate}` }>{sale.saleDate}</span>
-        <span data-testid={ `${orderDetails}${deliveryStatus}` }>{sale.status}</span>
+        <span data-testid={ `${orderDetails}${deliveryStatus}` }>{orderStatus}</span>
         <button
           data-testid={ `${orderDetails}${deliveryCheck}` }
           type="button"
-          disabled={ sale.status !== 'Em Trânsito' }
+          disabled={ orderStatus !== 'Em Trânsito' }
           onClick={ () => updateStatus('Entregue') }
         >
           MARCAR COMO ENTREGUE
