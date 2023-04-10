@@ -6,7 +6,7 @@ function AdminManage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('seller');
+  const [role, setRole] = useState('customer');
   const [users, setUsers] = useState([]);
   const [failedTryRegister, setFailedTryRegister] = useState(false);
 
@@ -39,7 +39,7 @@ function AdminManage() {
     setName('');
     setEmail('');
     setPassword('');
-    setRole('seller');
+    setRole('customer');
   };
 
   const handleBtn = async () => {
@@ -85,11 +85,11 @@ function AdminManage() {
         />
         <select
           data-testid={ `${adminManage}${selectRole}` }
-          onClick={ (e) => setRole(e.target.value) }
+          onChange={ (e) => setRole(e.target.value) }
         >
-          <option value="seller">Vendedor</option>
           <option value="customer">Cliente</option>
-          <option value="administrator">Administrador</option>
+          <option value="seller">Vendedor</option>
+          {/* <option value="administrator">Administrador</option> */}
         </select>
         <button
           type="button"
