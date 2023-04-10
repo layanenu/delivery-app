@@ -36,6 +36,9 @@ function Login() {
       case 'customer':
         history.push('/customer/products');
         break;
+      case 'administrator':
+        history.push('/admin/manage');
+        break;
       default:
         break;
       }
@@ -56,6 +59,9 @@ function Login() {
         break;
       case 'customer':
         history.push('/customer/products');
+        break;
+      case 'administrator':
+        history.push('/admin/manage');
         break;
       default:
         break;

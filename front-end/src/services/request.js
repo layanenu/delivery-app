@@ -29,4 +29,10 @@ export const requestUpdate = async (endpoint, body) => {
   return data;
 };
 
+export const requestDelete = async (endpoint, email, token) => {
+  setToken(token);
+  const { data } = await api.delete(endpoint, { data: email });
+  return data;
+};
+
 export default api;

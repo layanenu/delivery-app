@@ -3,6 +3,7 @@ const fs = require('fs');
 
 const tokenValidation = (req, res, next) => {
   const token = req.headers.authorization;
+  console.log(req.headers);
   const secret = fs.readFileSync('jwt.evaluation.key', 'utf-8') || 'secret';
 
   if (!token) {

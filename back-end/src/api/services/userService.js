@@ -17,8 +17,18 @@ const getUsers = async () => {
   return users;
 };
 
+const getUsersByAdmin = async () => {
+  const users = await User.findAll({
+    where: { role: ['seller', 'customer'] },
+    
+  });
+  if (!users) return null;
+  return users;
+};
+
 const remove = async (email) => {
+  console.log(email);
   await User.destroy({ where: { email } });
 };
 
-module.exports = { getSellers, getUsers, remove };
+module.exports = { getSellers, getUsers, remove, getUsersByAdmin };
