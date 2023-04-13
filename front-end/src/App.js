@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import './App.css';
 import AdminManage from './Pages/AdminManage';
 import CustomerCheckout from './Pages/CustomerCheckout';
 import CustomerOrder from './Pages/CustomerOrder';

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestLogin, setToken } from '../services/request';
 
+import '../App.css';
+
 function Login() {
   const history = useHistory();
   const [email, setEmail] = useState('');
@@ -71,29 +73,57 @@ function Login() {
     }
   };
   return (
-    <div>
+    <div className="centerDiv">
       <form>
-        <input
-          type="email"
-          data-testid={ `${commonLogin}${inputEmail}` }
-          value={ email }
-          onChange={ (e) => setEmail(e.target.value) }
-        />
-        <input
-          type="password"
-          data-testid={ `${commonLogin}${inputPassword}` }
-          value={ password }
-          onChange={ (e) => setPassword(e.target.value) }
-        />
+        <div className="form-outline mb-4">
+          <label
+            className="form-label"
+            htmlFor="emailForm"
+          >
+            {/* Email */}
+            <input
+              placeholder="email"
+              className="form-control"
+              type="email"
+              data-testid={ `${commonLogin}${inputEmail}` }
+              value={ email }
+              onChange={ (e) => setEmail(e.target.value) }
+              id="emailForm"
+            />
+          </label>
+        </div>
+
+        <div>
+          <label
+            className="form-label"
+            htmlFor="passwordForm"
+          >
+            {/* Password */}
+            <input
+              placeholder="password"
+              id="passwordForm"
+              className="form-control"
+              type="password"
+              data-testid={ `${commonLogin}${inputPassword}` }
+              value={ password }
+              onChange={ (e) => setPassword(e.target.value) }
+            />
+          </label>
+        </div>
+        <br />
         <button
+          className="btn btn-primary btn-block"
           type="button"
           data-testid={ `${commonLogin}${buttonLogin}` }
           disabled={ !(emailIsValid && password.length >= minPasswordLenght) }
           onClick={ (e) => loginButton(e) }
         >
-          LOGIN
+          Login
         </button>
+        <br />
+        <br />
         <button
+          className="btn btn-primary btn-block"
           type="button"
           data-testid={ `${commonLogin}${buttonRegister}` }
           onClick={ () => history.push('/register') }

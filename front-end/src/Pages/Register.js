@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestLogin, setToken } from '../services/request';
+import '../App.css';
 
 function Register() {
   const history = useHistory();
@@ -40,27 +41,60 @@ function Register() {
     }
   };
   return (
-    <div>
+    <div className="centerDiv">
       <form>
-        <input
-          type="text"
-          data-testid={ `${commonRegister}${inputName}` }
-          value={ name }
-          onChange={ (e) => setName(e.target.value) }
-        />
-        <input
-          type="email"
-          data-testid={ `${commonRegister}${inputEmail}` }
-          value={ email }
-          onChange={ (e) => setEmail(e.target.value) }
-        />
-        <input
-          type="password"
-          data-testid={ `${commonRegister}${inputPassword}` }
-          value={ password }
-          onChange={ (e) => setPassword(e.target.value) }
-        />
+        <div className="form-outline mb-4">
+          <label
+            htmlFor="nameForm"
+            className="form-label"
+          >
+            <input
+              id="nameForm"
+              className="form-control"
+              placeholder="name"
+              type="text"
+              data-testid={ `${commonRegister}${inputName}` }
+              value={ name }
+              onChange={ (e) => setName(e.target.value) }
+            />
+          </label>
+        </div>
+
+        <div className="form-outline mb-4">
+          <label
+            htmlFor="emailForm"
+            className="form-label"
+          >
+            <input
+              placeholder="email"
+              className="form-control"
+              id="emailForm"
+              type="email"
+              data-testid={ `${commonRegister}${inputEmail}` }
+              value={ email }
+              onChange={ (e) => setEmail(e.target.value) }
+            />
+          </label>
+        </div>
+
+        <div className="form-outline mb-4">
+          <label
+            htmlFor="passwordForm"
+            className="form-label"
+          >
+            <input
+              id="passwordForm"
+              className="form-control"
+              placeholder="password"
+              type="password"
+              data-testid={ `${commonRegister}${inputPassword}` }
+              value={ password }
+              onChange={ (e) => setPassword(e.target.value) }
+            />
+          </label>
+        </div>
         <button
+          className="btn btn-primary btn-block mb-4"
           type="button"
           data-testid={ `${commonRegister}${buttonRegister}` }
           disabled={
