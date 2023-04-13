@@ -18,3 +18,48 @@
   text-align: center;
   padding-top: 100px;
 }
+
+.centerDivHorizontal {
+  display: flexbox; 
+  flex-direction: row; 
+  align-items: center;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.imgSize {
+  align-self: center;
+  width: 150px;
+}
+
+.flexInputBtns {
+  padding-left: 200px;
+  padding-right: 200px;
+  align-items: center;
+  justify-content: space-evenly;
+  align-content: center;
+  align-self: center;
+  display: flex;
+  width: 100%;
+}
+
+.inputSizeQty {
+  margin: 0px 20px;
+  padding: 10px;
+  width: 100px;
+}
+
+.liStyle li a {
+  text-decoration:none;
+  /* font-size: 2em; */
+}
+
+.navSize {
+  font-size: 30px;
+}
+
+
+.containerWrap {
+  display: flex;
+  flex-wrap: wrap;
+}

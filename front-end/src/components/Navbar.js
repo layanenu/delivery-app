@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import '../App.css';
 
 function Navbar() {
   const [role, setRole] = useState('');
@@ -25,53 +26,67 @@ function Navbar() {
     setName(user.name);
   }, []);
   return (
-    <nav>
-      <div>
-        {
-          (role === 'customer') ? (
-            <Link
-              data-testid={ `${customerProducts}${elementNavbar}${linkProducts}` }
-              to="/customer/products"
-            >
-              PRODUTOS
-            </Link>) : null
-        }
-        {
-          (role === 'customer') ? (
-            <Link
-              data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
-              to="/customer/orders"
-            >
-              MEUS PEDIDOS
-            </Link>
-          ) : null
-        }
-        {
-          (role === 'seller') ? (
-            <Link
-              data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
-              to="/seller/orders"
-            >
-              PEDIDOS
-            </Link>
-          ) : null
-        }
-        {
-          (role === 'administrator') ? (
-            <Link
-              to="/admin/manage"
-            >
-              GERENCIAR USUÁRIOS
-            </Link>
-          ) : null
-        }
+    <nav className="navbar navbar-expand-lg navbar-light bg-light navSize">
+      <div className="container-fluid">
+        <nav aria-label="breadcrumb">
+          <ol className="breadcrumb liStyle">
+            {
+              (role === 'customer') ? (
+                <li className="breadcrumb-item">
+                  <Link
+                    data-testid={ `${customerProducts}${elementNavbar}${linkProducts}` }
+                    to="/customer/products"
+                  >
+                    Produtos
+                  </Link>
+                </li>
+              ) : null
+            }
+            {
+              (role === 'customer') ? (
+                <li className="breadcrumb-item">
+                  <Link
+                    data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
+                    to="/customer/orders"
+                  >
+                    Meus Pedidos
+                  </Link>
+                </li>
+              ) : null
+            }
+            {
+              (role === 'seller') ? (
+                <li className="breadcrumb-item">
+                  <Link
+                    data-testid={ `${customerProducts}${elementNavbar}${linkOrders}` }
+                    to="/seller/orders"
+                  >
+                    Pedidos
+                  </Link>
+                </li>
+              ) : null
+            }
+            {
+              (role === 'administrator') ? (
+                <li className="breadcrumb-item">
+                  <Link
+                    to="/admin/manage"
+                  >
+                    Gerenciar Usuários
+                  </Link>
+                </li>
+              ) : null
+            }
+          </ol>
+        </nav>
 
-        <p
+        <h3
           data-testid={ `${customerProducts}${elementNavbar}${userFullName}` }
         >
           {name}
-        </p>
+        </h3>
         <button
+          className="btn btn-primary btn-block"
           type="button"
           data-testid={ `${customerProducts}${elementNavbar}${linkLogout}` }
           onClick={ (e) => handleLogout(e) }

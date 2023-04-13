@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import AppContext from '../context/AppContext';
@@ -63,40 +64,64 @@ function ProductCard({ product }) {
   };
 
   return (
-    <div>
+    // <section>
+    // <div className="container py-5">
+    // <div className="justify-content-center">
+    //   <div className="col-md-8 col-lg-6 col-xl-4">
+    <div className="card text-black">
       <img
+        className="card-img-top imgSize"
         src={ urlImage }
         alt={ name }
-        width="150"
         data-testid={ `${customerProducts}${imgCard}${id}` }
       />
-      <p data-testid={ `${customerProducts}${cardTitle}${id}` }>{name}</p>
-      <p data-testid={ `${customerProducts}${elementCard}${id}` }>{newPrice}</p>
-      <button
-        type="button"
-        // name="decrease"
-        data-testid={ `${customerProducts}${buttonRmItem}${id}` }
-        // onClick={ () => handleCart(produto, rmItem) }
-        onClick={ handleDecrease }
-      >
-        -
-      </button>
-      <input
-        type="number"
-        data-testid={ `${inputQuantity}${id}` }
-        value={ quantity }
-        onChange={ handleInputChange }
-      />
-      <button
-        type="button"
-        // name="increase"
-        data-testid={ `${customerProducts}${buttonAddItem}${id}` }
-        onClick={ handleIncrease }
-        // onClick={ () => handleCart(produto, addItem) }
-      >
-        +
-      </button>
+      <div className="card-body ">
+        <div className="text-center mt-1">
+          <h4
+            data-testid={ `${customerProducts}${cardTitle}${id}` }
+          >
+            {name}
+          </h4>
+          <h5
+            data-testid={ `${customerProducts}${elementCard}${id}` }
+          >
+            {newPrice}
+          </h5>
+        </div>
+        <div className="flexInputBtns">
+          <button
+            className="btn btn-primary flex-fill me-1"
+            data-testid={ `${customerProducts}${buttonRmItem}${id}` }
+            type="button"
+            onClick={ handleDecrease }
+          >
+            -
+          </button>
+          <label htmlFor="qtyForm" className="form-label">
+            <input
+              id="qtyForm"
+              className="form-control inputSizeQty"
+              type="number"
+              data-testid={ `${inputQuantity}${id}` }
+              value={ quantity }
+              onChange={ handleInputChange }
+            />
+          </label>
+          <button
+            className="btn btn-primary flex-fill me-1"
+            data-testid={ `${customerProducts}${buttonAddItem}${id}` }
+            type="button"
+            onClick={ handleIncrease }
+          >
+            +
+          </button>
+        </div>
+      </div>
     </div>
+    //   </div>
+    // </div>
+    // </div>
+    // </section>
   );
 }
 

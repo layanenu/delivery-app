@@ -6,6 +6,7 @@ import AppContext from '../context/AppContext';
 import { sumCart } from '../services/localStorageUtils';
 // import { getCartItems } from '../services/localStorageUtils';
 import { requestData } from '../services/request';
+import '../App.css';
 
 function CustomerProducts() {
   const [products, setProducts] = useState([]);
@@ -29,9 +30,11 @@ function CustomerProducts() {
   return (
     <div>
       <Navbar />
-      <div>
-        {products
-          .map((product) => <ProductCard key={ product.id } product={ product } />)}
+      <div className="text-center container py-5">
+        <div className="d-flex align-items-center containerWrap">
+          {products
+            .map((product) => <ProductCard key={ product.id } product={ product } />)}
+        </div>
       </div>
       <footer>
         <button
