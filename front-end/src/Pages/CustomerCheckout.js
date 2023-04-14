@@ -46,10 +46,10 @@ function CustomerCheckout() {
   }, [sellers]);
 
   const insertSale = async () => {
-    console.log(selectedSeller.id);
+    console.log(selectedSeller);
     const { token } = JSON.parse(localStorage.getItem('user'));
     const { id } = await requestWithToken('/sales', {
-      sellerId: Number(selectedSeller.id),
+      sellerId: Number(selectedSeller),
       totalPrice: totalCart,
       deliveryAddress: address,
       deliveryNumber: Number(addressNumber),
@@ -60,57 +60,93 @@ function CustomerCheckout() {
   };
 
   const setSeller = (e) => {
+    console.log(e.target.value);
     setSelectedSeller(e.target.value);
   };
   return (
     <div>
       <Navbar />
-      {cart.map((product, index) => (
-        <ProductCheckout
-          key={ index }
-          product={ product }
-          index={ index }
-          page={ checkout }
-          item={ item }
-          name={ name }
-          quantidade={ quantidade }
-          preco={ preco }
-          subTotal={ subTotal }
-        />
-      ))}
-      <button type="button">
-        TOTAL: R$
-        {' '}
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Produto</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Valor Unitário</th>
+            <th scope="col">Sub-total</th>
+            <th scope="col">Remover Item</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cart.map((product, index) => (
+            <ProductCheckout
+              key={ index }
+              product={ product }
+              index={ index }
+              page={ checkout }
+              item={ item }
+              name={ name }
+              quantidade={ quantidade }
+              preco={ preco }
+              subTotal={ subTotal }
+            />
+          ))}
+        </tbody>
+      </table>
+      <h3>
+        Total: R$
         <span data-testid={ `${checkout}${totalPedido}` }>{totalCart}</span>
-      </button>
-      <select
-        data-testid={ `${checkout}${vendedor}` }
-        value={ selectedSeller }
-        onClick={ setSeller }
-      >
-        {sellers.map((seller) => (
-          <option value={ seller.id } key={ seller.id }>{seller.name}</option>))}
-      </select>
-      <input
-        type="text"
-        data-testid={ `${checkout}${endereco}` }
-        value={ address }
-        onChange={ (e) => setAddres(e.target.value) }
-      />
-      <input
-        type="number"
-        data-testid={ `${checkout}${enderecoNum}` }
-        value={ addressNumber }
-        onChange={ (e) => setAddresnumber(e.target.value) }
-      />
-      <button
-        type="button"
-        data-testid={ `${checkout}${btnEnviar}` }
-        onClick={ insertSale }
-        disabled={ cart.length < 1 }
-      >
-        FINALIZAR_PEDIDO
-      </button>
+      </h3>
+      <form>
+        <div className="addressForm">
+          <h3>Detalhes e endereço de entrega</h3>
+          <select
+            className="form-select"
+            data-testid={ `${checkout}${vendedor}` }
+            value={ selectedSeller }
+            onClick={ setSeller }
+          >
+            {sellers.map((seller) => (
+              <option value={ seller.id } key={ seller.id }>{seller.name}</option>))}
+          </select>
+          <label
+            className="form-label"
+            htmlFor="addressForm"
+          >
+            <input
+              placeholder="endereço"
+              id="addressForm"
+              className="form-control"
+              type="text"
+              data-testid={ `${checkout}${endereco}` }
+              value={ address }
+              onChange={ (e) => setAddres(e.target.value) }
+            />
+          </label>
+          <label
+            className="form-label"
+            htmlFor="numberForm"
+          >
+            <input
+              id="numberForm"
+              className="form-control"
+              type="number"
+              data-testid={ `${checkout}${enderecoNum}` }
+              value={ addressNumber }
+              onChange={ (e) => setAddresnumber(e.target.value) }
+            />
+          </label>
+          <button
+            className="btn btn-primary flex-fill me-1"
+            type="button"
+            data-testid={ `${checkout}${btnEnviar}` }
+            onClick={ insertSale }
+            disabled={ cart.length < 1 }
+          >
+            FINALIZAR_PEDIDO
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

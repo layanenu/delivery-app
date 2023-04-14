@@ -20,13 +20,16 @@ function ProductCheckout(props) {
   };
 
   const rmvBtn = (
-    <button
-      type="button"
-      data-testid={ `${page}${remove}${index}` }
-      onClick={ rmvProduct }
-    >
-      Remover
-    </button>
+    <td>
+      <button
+        className="btn btn-primary flex-fill me-1"
+        type="button"
+        data-testid={ `${page}${remove}${index}` }
+        onClick={ rmvProduct }
+      >
+        Remover
+      </button>
+    </td>
   );
 
   useEffect(() => {
@@ -35,21 +38,16 @@ function ProductCheckout(props) {
   }, []);
 
   return (
-    <div>
-      <span data-testid={ `${page}${item}${index}` }>{`${index + 1} - `}</span>
-      <span data-testid={ `${page}${name}${index}` }>{`${product.name} - `}</span>
-      <span data-testid={ `${page}${quantidade}${index}` }>
-        {`${product.quantity} - `}
-      </span>
-      <span data-testid={ `${page}${preco}${index}` }>
-        {`${product.price.replace('.', ',')} - `}
-      </span>
-      <span data-testid={ `${page}${subTotal}${index}` }>
+    <tr>
+      <th data-testid={ `${page}${item}${index}` } scope="row">{index + 1}</th>
+      <td data-testid={ `${page}${name}${index}` }>{product.name}</td>
+      <td data-testid={ `${page}${quantidade}${index}` }>{product.quantity}</td>
+      <td data-testid={ `${page}${preco}${index}` }>{product.price.replace('.', ',')}</td>
+      <td data-testid={ `${page}${subTotal}${index}` }>
         {String(product.subTotal.toFixed(2)).replace('.', ',')}
-      </span>
+      </td>
       {isCheckout ? rmvBtn : null}
-
-    </div>
+    </tr>
   );
 }
 

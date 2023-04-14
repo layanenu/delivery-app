@@ -63,3 +63,18 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.footer {
+  display: block;
+  text-align: center;
+  padding-bottom: 50px;
+}
+
+.addressForm {
+  display: inline-block;
+  padding: 5% 0%;
+}
+
+.tableHandPointer {
+  cursor: pointer;
+}

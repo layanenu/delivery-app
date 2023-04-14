@@ -90,7 +90,7 @@ function ProductCard({ product }) {
         </div>
         <div className="flexInputBtns">
           <button
-            className="btn btn-primary flex-fill me-1"
+            className="btn btn-primary me-1"
             data-testid={ `${customerProducts}${buttonRmItem}${id}` }
             type="button"
             onClick={ handleDecrease }
@@ -108,7 +108,7 @@ function ProductCard({ product }) {
             />
           </label>
           <button
-            className="btn btn-primary flex-fill me-1"
+            className="btn btn-primary me-1"
             data-testid={ `${customerProducts}${buttonAddItem}${id}` }
             type="button"
             onClick={ handleIncrease }

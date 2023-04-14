@@ -31,13 +31,14 @@ function CustomerProducts() {
     <div>
       <Navbar />
       <div className="text-center container py-5">
-        <div className="d-flex align-items-center containerWrap">
+        <div className="align-items-center">
           {products
             .map((product) => <ProductCard key={ product.id } product={ product } />)}
         </div>
       </div>
-      <footer>
+      <footer className="footer">
         <button
+          className="btn btn-primary flex-fill me-1"
           type="button"
           data-testid={ `${customerProducts}button-cart` }
           onClick={ () => history.push('/customer/checkout') }
@@ -52,7 +53,6 @@ function CustomerProducts() {
           </span>
         </button>
       </footer>
-
     </div>
   );
 }
